@@ -1,7 +1,4 @@
-.directory
-*.~
-bin
-build
-apps/nonpublic
 CMakeLists.txt.user*
-HomologyInference.zip
+CMakeCache.txt
+.DS_Store
+.directory
