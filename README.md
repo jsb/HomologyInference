@@ -10,23 +10,23 @@ This repository contains:
 
 ## Prerequisites
 
+### Dependencies
+
+There are several third-party dependencies.
+On a Debian-based Linux system, you can install all of them using the following command:
+
+    sudo apt install cmake libeigen3-dev libgl1-mesa-dev mesa-utils libglfw3 libglfw3-dev libxinerama-dev libxcursor-dev libxi-dev git g++
+
 ### Gurobi
 
-Before you can build this project, you need to install the **Gurobi Optimizer** library.
+This project depends on the **Gurobi Optimizer** library.
+Please first obtain a valid Gurobi license.
+Gurobi offers [free academic licenses](https://www.gurobi.com/downloads/end-user-license-agreement-academic/).
+
 The installation and setup process for Linux is described in the [Software Installation Guide](https://www.gurobi.com/documentation/9.1/quickstart_linux/index.html).
 
 Depending on your compiler, it may be necessary to recompile the Gurobi C++ interface to avoid ABI incompatibilities.
 Follow [these instructions](https://support.gurobi.com/hc/en-us/articles/360039093112-How-do-I-resolve-undefined-reference-errors-while-linking-Gurobi-in-C-).
-
-Ensure you have obtained and installed a valid Gurobi lincense.
-Gurobi offers [free academic licenses](https://www.gurobi.com/downloads/end-user-license-agreement-academic/).
-
-### Other Dependencies
-
-There are further third-party dependencies.
-On a Debian-based Linux system, you can install all of them using the following command:
-
-    sudo apt install cmake libeigen3-dev libgl1-mesa-dev mesa-utils libglfw3 libglfw3-dev libxinerama-dev libxcursor-dev libxi-dev
 
 ## Build Instructions
 
