@@ -1,49 +1,62 @@
 # Set the GUROBI_HOME variable to the directory containing Gurobi's lib and include directories.
 set(GUROBI_HOME "$ENV{GUROBI_HOME}" CACHE PATH "Root directory of your Gurobi distribution")
 
-find_library(
-  GUROBI_LIBRARY
-  NAMES gurobi gurobi81 gurobi90 gurobi91
-  PATHS "${GUROBI_HOME}"
-  PATH_SUFFIXES lib
-)
+if(NOT EXISTS ${GUROBI_HOME})
+    message("GUROBI_HOME not set.")
+else()
+    string(REGEX MATCH "gurobi[0-9][0-9][0-9]" GUROBI_RELEASE_NAME ${GUROBI_HOME})
+    string(REGEX MATCH "[0-9][0-9][0-9]" GUROBI_PATCH_VERSION ${GUROBI_RELEASE_NAME})
+    string(SUBSTRING ${GUROBI_PATCH_VERSION} 0 2 GUROBI_MINOR_VERSION)
+    set(GUROBI_LIBRARY_NAME "gurobi${GUROBI_MINOR_VERSION}")
 
-find_library(
-  GUROBI_CPP_LIBRARY
-  NAMES gurobi_c++
-  PATHS "${GUROBI_HOME}"
-  PATH_SUFFIXES lib
-)
+    message("GUROBI_HOME: ${GUROBI_HOME}")
+    message("GUROBI_RELEASE_NAME: ${GUROBI_RELEASE_NAME}")
+    message("GUROBI_PATCH_VERSION: ${GUROBI_PATCH_VERSION}")
+    message("GUROBI_MINOR_VERSION: ${GUROBI_MINOR_VERSION}")
+    message("GUROBI_LIBRARY_NAME: ${GUROBI_LIBRARY_NAME}")
 
-find_path(
-  GUROBI_INCLUDE_DIR
-  NAMES gurobi_c.h
-  PATHS "${GUROBI_HOME}"
-  PATH_SUFFIXES include
-)
+    find_library(
+        GUROBI_LIBRARY
+        NAMES gurobi ${GUROBI_LIBRARY_NAME}
+        PATHS "${GUROBI_HOME}"
+        PATH_SUFFIXES lib
+    )
 
-find_path(
-  GUROBI_CPP_INCLUDE_DIR
-  NAMES gurobi_c++.h
-  PATHS "${GUROBI_HOME}"
-  PATH_SUFFIXES include
-)
+    find_library(
+        GUROBI_CPP_LIBRARY
+        NAMES gurobi_c++
+        PATHS "${GUROBI_HOME}"
+        PATH_SUFFIXES lib
+    )
 
-MESSAGE("GUROBI_HOME: ${GUROBI_HOME}")
-MESSAGE("GUROBI_LIBRARY: ${GUROBI_LIBRARY}")
-MESSAGE("GUROBI_CPP_LIBRARY: ${GUROBI_CPP_LIBRARY}")
-MESSAGE("GUROBI_INCLUDE_DIR: ${GUROBI_INCLUDE_DIR}")
-MESSAGE("GUROBI_CPP_INCLUDE_DIR: ${GUROBI_CPP_INCLUDE_DIR}")
+    find_path(
+        GUROBI_INCLUDE_DIR
+        NAMES gurobi_c.h
+        PATHS "${GUROBI_HOME}"
+        PATH_SUFFIXES include
+    )
 
+    find_path(
+        GUROBI_CPP_INCLUDE_DIR
+        NAMES gurobi_c++.h
+        PATHS "${GUROBI_HOME}"
+        PATH_SUFFIXES include
+    )
+
+    message("GUROBI_LIBRARY: ${GUROBI_LIBRARY}")
+    message("GUROBI_CPP_LIBRARY: ${GUROBI_CPP_LIBRARY}")
+    message("GUROBI_INCLUDE_DIR: ${GUROBI_INCLUDE_DIR}")
+    message("GUROBI_CPP_INCLUDE_DIR: ${GUROBI_CPP_INCLUDE_DIR}")
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
-  Gurobi
-  DEFAULT_MSG
-  GUROBI_LIBRARY
-  GUROBI_INCLUDE_DIR
-  GUROBI_CPP_LIBRARY
-  GUROBI_CPP_INCLUDE_DIR
+    Gurobi
+    DEFAULT_MSG
+    GUROBI_LIBRARY
+    GUROBI_INCLUDE_DIR
+    GUROBI_CPP_LIBRARY
+    GUROBI_CPP_INCLUDE_DIR
 )
 
 if(GUROBI_FOUND)
@@ -65,8 +78,8 @@ if(GUROBI_FOUND)
 endif()
 
 mark_as_advanced(
-  GUROBI_LIBRARY
-  GUROBI_INCLUDE_DIR
-  GUROBI_CPP_LIBRARY
-  GUROBI_CPP_INCLUDE_DIR
+    GUROBI_LIBRARY
+    GUROBI_INCLUDE_DIR
+    GUROBI_CPP_LIBRARY
+    GUROBI_CPP_INCLUDE_DIR
 )
