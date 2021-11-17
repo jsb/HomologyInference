@@ -25,8 +25,7 @@ Gurobi offers [free academic licenses](https://www.gurobi.com/downloads/end-user
 
 The installation and setup process for Linux is described in the [Software Installation Guide](https://www.gurobi.com/documentation/9.1/quickstart_linux/index.html).
 
-Depending on your compiler, it may be necessary to recompile the Gurobi C++ interface to avoid ABI incompatibilities.
-Follow [these instructions](https://support.gurobi.com/hc/en-us/articles/360039093112-How-do-I-resolve-undefined-reference-errors-while-linking-Gurobi-in-C-).
+Please recompile the Gurobi C++ interface to avoid ABI incompatibilities by following [these instructions](https://support.gurobi.com/hc/en-us/articles/360039093112-How-do-I-resolve-undefined-reference-errors-while-linking-Gurobi-in-C-).
 
 ## Build Instructions
 
@@ -54,7 +53,7 @@ A script that automates the above steps (except the installation of Gurobi) has 
 It will download the required dependencies and automatically build the project.
 Simply run
 
-    ./install.sh
+    ./grsi-install.sh
     
 If any problems occur during the build process, please consult the Troubleshooting section below.
 
